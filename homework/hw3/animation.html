@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>HW#3 - Fetch & Animations</title>
+</head>
+
+<body>
+    <button type="button" id="start">Start</button>
+    <button type="button" id="pause">Pause</button>
+    <button type="button" id="stop">Stop</button>
+    <button type="button" id="next">Next</button>
+    <button type="button" id="prev">Prev</button>
+
+    <script>
+        var images = [];
+        images.length = 16;
+
+        for (let j = 0; j < images.length; j++) {
+
+            images[j] = new Image();
+            images[j].src = 'tile00' + j.toString() + '.png';
+        }
+
+        function start() {
+
+        }
+
+        function pause() {
+
+        }
+
+        function fetchImage(url) {
+            fetch(url).then(r => r.blob()).then(b => {
+                let objectUrl = URL.createObjectURL(b);
+                const image = document.createElement('img')
+                image.src = imageObjectURL
+            })
+        }
+
+        const startButton = document.getElementById("start");
+        startButton.addEventListener("click", () => {
+
+        })
+
+        const pauseButton = document.getElementById("pause");
+        pauseButton.addEventListener("click", () => {
+
+        })
+
+        const stopButton = document.getElementById("stop");
+        stopButton.addEventListener("click", () => {
+
+        })
+
+        const nextButton = document.getElementById("next");
+        nextButton.addEventListener("click", () => {
+
+        })
+
+        const prevButton = document.getElementById("prev");
+        prevButton.addEventListener("click", () => {
+
+        })
+
+
+
+    </script>
+</body>
+
+</html>
