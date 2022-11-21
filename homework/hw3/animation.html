@@ -5,6 +5,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
     <title>HW#3 - Fetch & Animations</title>
+    <style>
+        body {
+            max-width: 440px;
+            background-color: rgba(57, 55, 55, 0.948);
+        }
+
+        button {
+            border: none;
+            color: rgb(82, 75, 82);
+            padding: 5px 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+
+        img {
+            padding: 20px 20px 20px 20px;
+
+        }
+    </style>
 </head>
 
 <body>
@@ -13,56 +36,128 @@
     <button type="button" id="stop">Stop</button>
     <button type="button" id="next">Next</button>
     <button type="button" id="prev">Prev</button>
+    <img src="" id="img">
 
     <script>
-        var images = [];
-        images.length = 16;
+        let images = []
+        let move = 0;
+        let running = false;
+        let paused = false;
+        let stoped = false;
 
-        for (let j = 0; j < images.length; j++) {
+        const img = document.getElementById("img");
+        const startButton = document.getElementById("start");
+        const pauseButton = document.getElementById("pause");
+        const stopButton = document.getElementById("stop");
+        const nextButton = document.getElementById("next");
+        const prevButton = document.getElementById("prev");
 
-            images[j] = new Image();
-            images[j].src = 'tile00' + j.toString() + '.png';
+        const fetchImage = async url => {
+            const response = await fetch(url)
+            const blob = await response.blob()
+
+            return blob
         }
 
-        function start() {
+        function getImages() {
+            for (i = 0; i < 8; i++) {
+                console.log("https://erayaltas.github.io/BLM19305E/homework/hw3/images/tile00" + i.toString() + ".png");
+                fetchImage("https://erayaltas.github.io/BLM19305E/homework/hw3/images/tile00" + i.toString() + ".png").then(blob => {
+                    const imageBlob = blob;
+                    images.push(URL.createObjectURL(imageBlob));
+                });
+            }
+        }
+        getImages();
 
+        function start() {
+            running = true;
+            stoped = false;
+            stopButton.style.backgroundColor = "white"
+            nextButton.disabled = false;
+            prevButton.disabled = false;
+            pauseButton.disabled = false;
+            setInterval(function () {
+                if (running) {
+                    move++;
+                    if (move >= 7) {
+                        move = 0;
+                    }
+                    console.log("move : " + move);
+                    img.src = images[move];
+                }
+            }, 200)
+        }
+
+        function stop() {
+            stoped = true;
+            running = false;
+            stopButton.style.backgroundColor = "red"
+            nextButton.disabled = true;
+            prevButton.disabled = true;
+            pauseButton.disabled = true;
+            img.src = images[move];
         }
 
         function pause() {
+            paused = !paused;
+            if (paused) {
+                pauseButton.style.backgroundColor = "orange"
+                running = false;
+            } else {
+                pauseButton.style.backgroundColor = "white"
+                running = true;
+            }
+            img.src = images[move];
 
         }
 
-        function fetchImage(url) {
-            fetch(url).then(r => r.blob()).then(b => {
-                let objectUrl = URL.createObjectURL(b);
-                const image = document.createElement('img')
-                image.src = imageObjectURL
-            })
+        function next() {
+            if (move < 7) {
+                move += 1;
+            } else {
+                move = 0;
+            }
+            fetchImage("https://erayaltas.github.io/BLM19305E/homework/hw3/images/tile00" + move.toString() + ".png").then(blob => {
+                const imageBlob = blob;
+                const imageBase64 = URL.createObjectURL(imageBlob);
+                img.src = imageBase64;
+                console.log(move + " : " + imageBase64);
+            });
         }
 
-        const startButton = document.getElementById("start");
+        function prev() {
+            if (move > 0) {
+                move -= 1;
+            } else {
+                move = 7;
+            }
+            fetchImage("https://erayaltas.github.io/BLM19305E/homework/hw3/images/tile00" + move.toString() + ".png").then(blob => {
+                const imageBlob = blob;
+                const imageBase64 = URL.createObjectURL(imageBlob);
+                img.src = imageBase64;
+                console.log(move + " : " + imageBase64);
+            });
+        }
+
         startButton.addEventListener("click", () => {
-
+            start();
         })
 
-        const pauseButton = document.getElementById("pause");
         pauseButton.addEventListener("click", () => {
-
+            pause();
         })
 
-        const stopButton = document.getElementById("stop");
         stopButton.addEventListener("click", () => {
-
+            stop();
         })
 
-        const nextButton = document.getElementById("next");
         nextButton.addEventListener("click", () => {
-
+            next();
         })
 
-        const prevButton = document.getElementById("prev");
         prevButton.addEventListener("click", () => {
-
+            prev();
         })
 
 
