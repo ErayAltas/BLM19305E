@@ -62,7 +62,6 @@
 
         function getImages() {
             for (i = 0; i < 8; i++) {
-                console.log("https://erayaltas.github.io/BLM19305E/homework/hw3/images/tile00" + i.toString() + ".png");
                 fetchImage("https://erayaltas.github.io/BLM19305E/homework/hw3/images/tile00" + i.toString() + ".png").then(blob => {
                     const imageBlob = blob;
                     images.push(URL.createObjectURL(imageBlob));
