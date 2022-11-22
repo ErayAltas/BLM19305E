@@ -44,6 +44,7 @@
         let running = false;
         let paused = false;
         let stoped = false;
+        let anim = null;
 
         const img = document.getElementById("img");
         const startButton = document.getElementById("start");
@@ -71,19 +72,22 @@
         getImages();
 
         function start() {
+            move = 0;
             running = true;
             stoped = false;
             stopButton.style.backgroundColor = "white"
             nextButton.disabled = false;
             prevButton.disabled = false;
             pauseButton.disabled = false;
-            setInterval(function () {
+            if (anim != null) {
+                clearInterval(anim);
+            }
+            anim = setInterval(function () {
                 if (running) {
                     move++;
                     if (move >= 7) {
                         move = 0;
                     }
-                    console.log("move : " + move);
                     img.src = images[move];
                 }
             }, 200)
@@ -122,7 +126,6 @@
                 const imageBlob = blob;
                 const imageBase64 = URL.createObjectURL(imageBlob);
                 img.src = imageBase64;
-                console.log(move + " : " + imageBase64);
             });
         }
 
@@ -136,7 +139,6 @@
                 const imageBlob = blob;
                 const imageBase64 = URL.createObjectURL(imageBlob);
                 img.src = imageBase64;
-                console.log(move + " : " + imageBase64);
             });
         }
 
