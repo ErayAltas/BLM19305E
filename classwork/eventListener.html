@@ -55,7 +55,6 @@
       // JavaScript comment
       function init() {
         navigator.getBattery().then(b => {
-          level.innerText = b.level * 100 + "%"
           charge.innerText = (b.charging ? "Charging" : "Discharging")
           b.onchargingchange = function () {
             charge.innerText = (b.charging ? "Charging" : "Discharging")
