@@ -54,7 +54,7 @@
       // JavaScript comment
       function init() {
         navigator.getBattery().then(b => {
-          lev.innerText = b.level * 100 + "%"
+          lev.innerText = b.level.toFixed(2) * 100 + "%"
           charge.innerText = (b.charging ? "Charging" : "Discharging")
           b.onchargingchange = function () {
             charge.innerText = (b.charging ? "Charging" : "Discharging")
