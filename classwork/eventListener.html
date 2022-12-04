@@ -30,11 +30,10 @@
   <h2 id=title title="Modify xxx"></h2>
 
   <p title="Battery level">
-    Battery level: <span id=level></span>
+    Battery level: <span id=lev></span>
 
   <p title="Battery level">
-    Discharging... 
-    <span id=time>?</span>
+    Discharging time : <span id=time>?</span>
     <hr />
 
   <p title="Charging Status : ">
@@ -60,10 +59,9 @@
             charge.innerText = (b.charging ? "Charging" : "Discharging")
             console.log(b.charging)
           }
-
-          level.innerText = b.level * 100 + "%"
+          console.log(b.level);
           b.onlevelchange = function () {
-            level.innerText = b.level * 100 + "%"
+            lev.innerText = b.level * 100 + "%"
             console.log(b.charging)
           }
           let hour = b.dischargingTime / 3600
