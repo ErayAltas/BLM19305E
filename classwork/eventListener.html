@@ -54,6 +54,7 @@
       // JavaScript comment
       function init() {
         navigator.getBattery().then(b => {
+          lev.innerText = b.level * 100 + "%"
           charge.innerText = (b.charging ? "Charging" : "Discharging")
           b.onchargingchange = function () {
             charge.innerText = (b.charging ? "Charging" : "Discharging")
@@ -61,7 +62,7 @@
           }
           console.log(b.level);
           b.onlevelchange = function () {
-            lev.innerText = b.level * 100 + "%"
+
             console.log(b.charging)
           }
           let hour = b.dischargingTime / 3600
