@@ -1,3 +1,13 @@
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("sw.js").then(registration => {
+        console.log("sw registered!");
+        console.log(registration);
+    }).catch(err => {
+        console.log("sw failed!");
+        console.log(err);
+    })
+}
+
 const lengthSlider = document.querySelector(".pass-length input");
 const options = document.querySelectorAll(".option input");
 const copyIcon = document.querySelector(".input-box span");
@@ -46,7 +56,7 @@ const generatePassword = () => {
 
 const upadatePassIndicator = () => {
     // password strength indicator 
-    passIndicator.id = lengthSlider.value <= 8 ? "weak" : lengthSlider.value <= 16 ? "medium" : "strong";
+    passIndicator.id = lengthSlider.value <= 13 ? "weak" : lengthSlider.value <= 20 ? "medium" : "strong";
 }
 
 const updateSlider = () => {
