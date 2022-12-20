@@ -2,7 +2,7 @@ self.addEventListener("install", e => {
     console.log("Installed");
     e.waitUntil(
         caches.open("static").then(cache => {
-            return cache.addAll("./");
+            return cache.addAll(["./", "./src/favicon.ico"]);
         })
     );
 
