@@ -2,11 +2,10 @@
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     width: 400px;
     height: auto;
-    position: relative;
     margin: auto;
     list-style-type: circle;
     border: 2px solid black;
-    padding-left: 50px;
+    text-align: center;
 }
 
 ul.a {
