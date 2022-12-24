@@ -6,7 +6,7 @@
     border: 2px solid black;
 }
 
-h2{
+h2 {
     text-align: center;
 }
 
@@ -14,11 +14,8 @@ h2{
     text-align: center;
 }
 
-a{
-    color : rgb(28, 163, 213);
+a {
+    color: rgb(28, 163, 213);
     font-size: 20px;
     padding-left: 20px;
-}
-#tag{
-    font-size: small;
 }
