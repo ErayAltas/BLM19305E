@@ -100,7 +100,7 @@ const updatePassIndicator = () => {
 const updateSlider = () => {
     // passing slider value
     document.querySelector(".pass-length span").innerText = lengthSlider.value;
-    passStrengthValue = lengthSlider.value * 2;
+    passStrengthValue += lengthSlider.value * 2;
     generatePassword();
     updatePassIndicator();
 }
