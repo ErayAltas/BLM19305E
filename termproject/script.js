@@ -15,6 +15,22 @@ const passwordInput = document.querySelector(".input-box input");
 const passIndicator = document.querySelector(".pass-indicator");
 const generateBtn = document.querySelector(".generate-btn");
 
+const updateCbCount = () => {
+    var checkedBoxCount = 0;
+    options.forEach(option => {
+        if (option.chec) {
+            checkedBoxCount += 1;
+        }
+    });
+
+    
+    console.log("count :" + checkedBoxCount);
+}
+
+updateCbCount();
+
+
+
 const characters = { // object of letters, numbers & symbols
     lowercase: "abcdefghijklmnopqrstuvwxyz",
     uppercase: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
@@ -55,8 +71,16 @@ const generatePassword = () => {
 }
 
 const upadatePassIndicator = () => {
-    // password strength indicator 
-    passIndicator.id = lengthSlider.value <= 13 ? "weak" : lengthSlider.value <= 20 ? "medium" : "strong";
+    passIndicator.id = (lengthSlider.value <= 8 && checkedBoxCount < 2) ? "weak" : ((lengthSlider.value > 15 && checkedBoxCount < 4) ? "medium" : "strong");
+    // if (lengthSlider.value <= 8 && checkedBoxCount < 2) {
+    //     passIndicator.id = "weak";
+    // }
+    // else if (lengthSlider.value < 15 && checkedBoxCount < 4) {
+    //     passIndicator.id = "medium";
+    // }
+    // else {
+    //     passIndicator.id = "strong";
+    // }
 }
 
 const updateSlider = () => {
@@ -67,6 +91,7 @@ const updateSlider = () => {
 }
 
 updateSlider();
+upadatePassIndicator();
 
 const copyPassword = () => {
     var textArea = document.createElement("textarea");
