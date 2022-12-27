@@ -17,21 +17,25 @@ const passIndicator = document.querySelector(".pass-indicator");
 const generateBtn = document.querySelector(".generate-btn");
 
 var passStrengthValue = 0;
+var checkedCbCount = 0;
 
 const updateCbCount = () => {
     options.forEach(option => {
         option.addEventListener('change', function () {
             if (this.checked) {
-                passStrengthValue += 10;
+                passStrengthValue += 8;
+                checkedCbCount += 1;
                 updatePassIndicator();
                 generatePassword();
             } else {
-                passStrengthValue -= 10;
+                passStrengthValue -= 8;
+                checkedCbCount -= 1;
                 updatePassIndicator();
                 generatePassword();
             }
         });
     });
+
 }
 
 updateCbCount();
@@ -100,7 +104,8 @@ const updatePassIndicator = () => {
 const updateSlider = () => {
     // passing slider value
     document.querySelector(".pass-length span").innerText = lengthSlider.value;
-    passStrengthValue += lengthSlider.value * 2;
+    passStrengthValue = checkedCbCount * 8;
+    passStrengthValue += lengthSlider.value * 1;
     generatePassword();
     updatePassIndicator();
 }
