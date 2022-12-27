@@ -11,25 +11,30 @@ if ("serviceWorker" in navigator) {
 const lengthSlider = document.querySelector(".pass-length input");
 const options = document.querySelectorAll(".option input");
 const copyIcon = document.querySelector(".input-box span");
+const moodIcon = document.querySelector(".pass-strength span");
 const passwordInput = document.querySelector(".input-box input");
 const passIndicator = document.querySelector(".pass-indicator");
 const generateBtn = document.querySelector(".generate-btn");
 
-const updateCbCount = () => {
-    var checkedBoxCount = 0;
-    options.forEach(option => {
-        if (option.chec) {
-            checkedBoxCount += 1;
-        }
-    });
+var passStrengthValue = 0;
 
-    
-    console.log("count :" + checkedBoxCount);
+const updateCbCount = () => {
+    options.forEach(option => {
+        option.addEventListener('change', function () {
+            if (this.checked) {
+                passStrengthValue += 10;
+                updatePassIndicator();
+                generatePassword();
+            } else {
+                passStrengthValue -= 10;
+                updatePassIndicator();
+                generatePassword();
+            }
+        });
+    });
 }
 
 updateCbCount();
-
-
 
 const characters = { // object of letters, numbers & symbols
     lowercase: "abcdefghijklmnopqrstuvwxyz",
@@ -70,28 +75,38 @@ const generatePassword = () => {
     passwordInput.value = randomPassword;
 }
 
-const upadatePassIndicator = () => {
-    passIndicator.id = (lengthSlider.value <= 8 && checkedBoxCount < 2) ? "weak" : ((lengthSlider.value > 15 && checkedBoxCount < 4) ? "medium" : "strong");
-    // if (lengthSlider.value <= 8 && checkedBoxCount < 2) {
-    //     passIndicator.id = "weak";
-    // }
-    // else if (lengthSlider.value < 15 && checkedBoxCount < 4) {
-    //     passIndicator.id = "medium";
-    // }
-    // else {
-    //     passIndicator.id = "strong";
-    // }
+const updatePassIndicator = () => {
+    console.log("id :" + passIndicator.id);
+    console.log("value :" + lengthSlider.value);
+    console.log("strength :" + passStrengthValue);
+
+    if (passStrengthValue < 36) {
+        passIndicator.id = "weak";
+        moodIcon.innerText = "sentiment_dissatisfied";
+    }
+    if (passStrengthValue >= 36 && passStrengthValue <= 50) {
+        passIndicator.id = "medium";
+        moodIcon.innerText = "sentiment_neutral";
+
+    }
+    if (passStrengthValue > 50) {
+        passIndicator.id = "strong";
+        moodIcon.innerText = "sentiment_satisfied";
+
+    }
+
 }
 
 const updateSlider = () => {
     // passing slider value
     document.querySelector(".pass-length span").innerText = lengthSlider.value;
+    passStrengthValue = lengthSlider.value * 2;
     generatePassword();
-    upadatePassIndicator();
+    updatePassIndicator();
 }
 
 updateSlider();
-upadatePassIndicator();
+updatePassIndicator();
 
 const copyPassword = () => {
     var textArea = document.createElement("textarea");
